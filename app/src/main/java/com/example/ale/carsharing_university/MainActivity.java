@@ -23,8 +23,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import android.os.AsyncTask;
@@ -34,7 +32,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,16 +43,13 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog mProgressDialog;
     ArrayList<String> listaPueblos;
     //ArrayLIst<Pueblo> pueblo;
-    EditText etResponse;
-    TextView tvIsConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Descargar archivo JSON
-        //new DescargaJSON().execute();
-        new AsyncRequest().execute("GET","http://mc.hamburcraft.xyz:5000/pueblos/");
+        new DescargaJSON().execute();
 
         /*
         //Creación archivo xml pueblos
@@ -108,66 +102,28 @@ public class MainActivity extends AppCompatActivity {
         activity.startActivity(intent);
     }
 
-    //Descargar archivo JSON AsyncTask
-    private StringBuffer ApiPetition(String method,String urlString) {
+    private //Descargar archivo JSON AsyncTask
+    class DescargaJSON extends AsyncTask<Void, Void, Void>{
+        protected Void doInBackground(Void... params){
+            // Locate the Pueblo Class
+            //pueblo = new ArrayList<Pueblo>();
+            // Create an array to populate the spinner
+            listaPueblos = new ArrayList<String>();
+            // JSON file URL address
+            jsonobject = JSONfunctions.getJSONfromURL("http://mc.hamburcraft.xyz:5000/pueblos/");
 
-
-        StringBuffer chaine = new StringBuffer("");
-        try{
-            URL url = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-            connection.setRequestProperty("User-Agent", "");
-            connection.setRequestMethod(method);//connection.setRequestMethod("POST")
-            connection.setDoInput(true);
-            connection.connect();
-
-            InputStream inputStream = connection.getInputStream();
-
-            BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream));
-            String line = "";
-            while ((line = rd.readLine()) != null) {
-                chaine.append(line);
-            }
-
-        } catch (IOException e) {
-            // writing exception to log
-            e.printStackTrace();
-        }
-
-        return chaine;
-    }
-
-
-    private class AsyncRequest extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String ... urls) {
-
-            return new String(ApiPetition(urls[0],urls[1]));
-        }
-        // onPostExecute displays the results of the AsyncTask.
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
             try {
-                JSONObject json = new JSONObject(result);
-                // Creamos una lista de ciudades para el spinner
-                listaPueblos = new ArrayList<String>();
-                //etResponse.setText(json.toString(1));
-
-                // Nos recorremos con un iterador todos los pueblos de la API
-                for(Iterator<String> iter = json.keys();iter.hasNext();){
-                    String id_pueblo = iter.next();
-
-                    // Añadimos los pueblos a la lista de pueblos
-                    listaPueblos.add(json.getString(id_pueblo));
-
+                // Locate the NodeList name
+                for (int i = 0; i <= 179; i++) {
+                    //jsonarray = jsonobject.getJSONArray(i);
                 }
-                etResponse.setText(json.optString("3"));
-            } catch (JSONException e) {
+
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
                 e.printStackTrace();
             }
-            //etResponse.setText(result);
+            return null;
+
         }
     }
-
 }
