@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -74,14 +75,82 @@ public class Registro extends AppCompatActivity {
     Context ctx=this;
 
 
+
+
+
+
+
+    //Metodos de gabriel para peticion json
+    private StringBuffer ApiPetition(String method,String urlString) {
+
+
+        StringBuffer chaine = new StringBuffer("");
+        try{
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            connection.setRequestProperty("User-Agent", "");
+            connection.setRequestMethod(method);//connection.setRequestMethod("POST")
+            connection.setDoInput(true);
+            connection.connect();
+
+            InputStream inputStream = connection.getInputStream();
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream));
+            String line = "";
+            while ((line = rd.readLine()) != null) {
+                chaine.append(line);
+            }
+
+        } catch (IOException e) {
+            // writing exception to log
+            e.printStackTrace();
+        }
+
+        return chaine;
+    }
+    private class AsyncRequest extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String ... urls) {
+
+            return new String(ApiPetition(urls[0],urls[1]));
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
+            try {
+                JSONObject json = new JSONObject(result);
+                //etResponse.setText(json.toString(1));
+                //etResponse.setText(json.optString("3"));
+                ArrayList<String> nombresPueblos=new ArrayList<>();
+                for(Iterator<String> iter = json.keys();iter.hasNext();){
+                    String id_pueblo = iter.next();
+
+                    // Añadimos los pueblos a la lista de pueblos
+                    nombresPueblos.add(json.getString(id_pueblo));
+
+                }
+
+                pueblo.setAdapter(new ArrayAdapter<String>(Registro.this,
+                        android.R.layout.simple_spinner_dropdown_item,
+                        nombresPueblos));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //etResponse.setText(result);
+        }
+    }
+
+
     //Invocación a la acitividad
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         //Descargar archivo JSON
         //new DescargaJSON().execute();
-        //new AsyncRequest().execute("GET", "http://mc.hamburcraft.xyz:5000/pueblos/");
-        new DownloadJSON().execute();
+        pueblo=(Spinner)findViewById(R.id.spinner_pueblos);
+        new AsyncRequest().execute("GET", "http://mc.hamburcraft.xyz:5000/pueblos/");
+        //new DownloadJSON().execute();
 
         // Acción al precionar boton de registro
         Button botonRegistrar = (Button)findViewById(R.id.button5);
@@ -113,20 +182,6 @@ public class Registro extends AppCompatActivity {
                 }
 
 
-  /*             pueblo = (Spinner)findViewById(R.id.spinner);
-
-                    puebloString = pueblo.getSelectedItem().toString();
-
-
-                universidad = (Spinner)findViewById(R.id.spinner2);
-
-                    universidadString = universidad.getSelectedItem().toString();
-
-
-                campus = (Spinner)findViewById(R.id.spinner3);
-
-                    campusString = campus.getSelectedItem().toString();
-*/
 
                 precio = (EditText)findViewById(R.id.editText4);
                 if (precio != null) {
@@ -198,34 +253,7 @@ public class Registro extends AppCompatActivity {
         }
         return aux;
     }
-/*
-    public boolean getPueblo(){
-        boolean aux = true;
-        if (puebloString.isEmpty()){
-            Toast.makeText(this, "Por favor, seleccione un pueblo", Toast.LENGTH_LONG).show();
-            aux = false;
-        }
-        return aux;
-    }
 
-    public boolean getUniversidad(){
-        boolean aux = true;
-        if (universidadString.isEmpty()){
-            Toast.makeText(this, "Por favor, introduzca una universidad", Toast.LENGTH_LONG).show();
-            aux = false;
-        }
-        return aux;
-    }
-
-    public boolean getCampus(){
-        boolean aux = true;
-        if (campusString.isEmpty()){
-            Toast.makeText(this, "Por favor, introduzca un campus de la universidad", Toast.LENGTH_LONG).show();
-            aux = false;
-        }
-        return aux;
-    }
-*/
     public boolean getPrecio(){
         boolean aux = true;
         if (precioString.isEmpty()){
@@ -236,182 +264,6 @@ public class Registro extends AppCompatActivity {
     }
 
 
-
-    // Registro en el servidor
-
-    /*class BackGround extends AsyncTask<String, String, String>{
-
-        /*protected String doInBackgroud(String... params){
-            String nombre = params[0];
-            String correo = params[1];
-            String telefono = params[2];
-            String contraseña = params[3];
-            String pueblo = params[4];
-            String universidad = params[5];
-            String campus = params[6];
-            String precio = params[7];
-
-            String data="";
-
-            int tmp;
-
-            try{
-                URL url = new URL("http://localhost/registro.php");
-
-                String urlParams = "nombre"+nombre+"&correo"+correo+"&telefono"+telefono+"&contraseña"+contraseña+"&pueblo"+pueblo+"&universidad"+universidad
-                        +"&campus"+campus+"&precio"+precio;
-
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-                httpURLConnection.setDoOutput(true);
-                OutputStream os = httpURLConnection.getOutputStream();
-                os.write(urlParams.getBytes());
-                os.flush();
-                os.close();
-                InputStream is = httpURLConnection.getInputStream();
-                while((tmp = is.read())!=1){
-                    data+= (char)tmp;
-                }
-
-                is.close();
-                httpURLConnection.disconnect();
-
-                return data;
-
-            }catch (MalformedURLException e) {
-                e.printStackTrace();
-                return "Exception: "+e.getMessage();
-            }catch (IOException e) {
-                e.printStackTrace();
-                return "Exception: "+e.getMessage();
-            }
-        }
-
-        protected void onPostExcecute(String s){
-            if(s.equals("")) {
-                s = "Data saved successfully.";
-            }
-            Toast.makeText(ctx, s, Toast.LENGTH_LONG).show();
-        }
-        */
-/*
-        protected String doInBackground(String... params) {
-            String nombre = params[0];
-            String correo = params[1];
-            String telefono = params[2];
-            String contraseña = params[3];
-            //String pueblo = params[4];
-            //String universidad = params[5];
-            //String campus = params[5];
-            String precio = params[4];
-
-            String data="";
-
-            int tmp;
-
-            try{
-                URL url = new URL("http://localhost/registro.php");
-
-                String urlParams = "nombre"+nombre+"&correo"+correo+"&telefono"+telefono+"&contraseña"+contraseña +"&precio"+precio;
-
-
-
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-                httpURLConnection.setDoOutput(true);
-                OutputStream os = httpURLConnection.getOutputStream();
-               // os.write(urlParams.getBytes());
-                os.flush();
-                os.close();
-                InputStream is = httpURLConnection.getInputStream();
-                while((tmp = is.read())!=1){
-                    data+= (char)tmp;
-                }
-
-                is.close();
-                httpURLConnection.disconnect();
-
-                return data;
-
-            }catch (MalformedURLException e) {
-                e.printStackTrace();
-                return "Exception: "+e.getMessage();
-            }catch (IOException e) {
-                e.printStackTrace();
-                return "Exception: "+e.getMessage();
-            }
-        }
-        protected void onPostExcecute(String s){
-            if(s.equals("")) {
-                s = "Data saved successfully.";
-            }
-            Toast.makeText(ctx, s, Toast.LENGTH_LONG).show();
-        }
-    }*/
-
-    //Descargar archivo JSON AsyncTask
-    /*private StringBuffer ApiPetition(String method,String urlString) {
-
-
-        StringBuffer chaine = new StringBuffer("");
-        try{
-            URL url = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-            connection.setRequestProperty("User-Agent", "");
-            connection.setRequestMethod(method);//connection.setRequestMethod("POST")
-            connection.setDoInput(true);
-            connection.connect();
-
-            InputStream inputStream = connection.getInputStream();
-
-            BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream));
-            String line = "";
-            while ((line = rd.readLine()) != null) {
-                chaine.append(line);
-            }
-
-        } catch (IOException e) {
-            // writing exception to log
-            e.printStackTrace();
-        }
-
-        return chaine;
-    }*/
-
-
-   /* private class AsyncRequest extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String ... urls) {
-
-            return new String(ApiPetition(urls[0],urls[1]));
-        }
-        // onPostExecute displays the results of the AsyncTask.
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
-            try {
-                JSONObject json = new JSONObject(result);
-                // Creamos una lista de ciudades para el spinner
-                listaPueblos = new ArrayList<String>();
-                //etResponse.setText(json.toString(1));
-
-                // Nos recorremos con un iterador todos los pueblos de la API
-                for(Iterator<String> iter = json.keys();iter.hasNext();){
-                    String id_pueblo = iter.next();
-
-                    // Añadimos los pueblos a la lista de pueblos
-                    listaPueblos.add(json.getString(id_pueblo));
-
-                }
-                etResponse.setText(json.optString("3"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            //etResponse.setText(result);
-        }
-*/
-
-
         //Descargar archivo JSON AsyncTask
         private class DownloadJSON extends AsyncTask<Void, Void, Void> {
             protected Void doInBackground(Void... params) {
@@ -420,9 +272,11 @@ public class Registro extends AppCompatActivity {
                 // Create an array to populate the spinner
                 listaPueblos = new ArrayList<String>();
                 // JSON file URL address
-                jsonobject = JSONfunctions.getJSONfromURL("http://mc.hamburcraft.xyz:5000/pueblos/");
+                jsonobject  = JSONfunctions.getJSONfromURL("http://mc.hamburcraft.xyz:5000/pueblos/");
+
 
                 try {
+                    Log.w("automeetjson", jsonobject.toString());
                     jsonarray = jsonobject.getJSONArray("");
                     listaPueblos.add(jsonobject.optString("3"));
                     /*for(int i=3; i<jsonarray.length(); i++){
@@ -466,7 +320,8 @@ public class Registro extends AppCompatActivity {
             // Creamos el Spinner con los datos de la API
             protected void onPostExecute(Void args) {
                 // Locate the spinner in activity_main.xml
-                Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
+                Spinner mySpinner = (Spinner) findViewById(R.id.spinner_pueblos);
+                Log.w("automeet","definido pueblos");
 
                 // Spinner adapter
                 mySpinner.setAdapter(new ArrayAdapter<String>(Registro.this,
