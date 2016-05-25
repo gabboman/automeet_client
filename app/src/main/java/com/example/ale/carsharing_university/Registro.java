@@ -185,7 +185,7 @@ public class Registro extends AppCompatActivity {
         pueblo=(Spinner)findViewById(R.id.spinner_pueblos);
         new AsyncRequest().execute("http://mc.hamburcraft.xyz:5000/pueblos/");
         try {
-            new PostCommentTask().execute(new URL("http://mc.hamburcraft.xyz:5000/test/"));//android studio se queja
+            new PostCommentTask().execute(new URL("http://mc.hamburcraft.xyz:5000/registro/"));//android studio se queja
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -381,14 +381,22 @@ public class Registro extends AppCompatActivity {
 
                 con = (HttpURLConnection)urls[0].openConnection();
 
-                String url = "http://mc.hamburcraft.xyz:5000/test/";
-                String charset = "UTF-8";  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
-                String test1 = "value1";
-                String test2 = "value2";
 
-                String query = String.format("test1=%s&test2=%s",
-                        URLEncoder.encode(test1, charset),
-                        URLEncoder.encode(test2, charset));
+                String charset = "UTF-8";  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
+                String nombre = "adolf";
+                String apellidos = "hitler";
+                String telefono= "643234444";
+                String pueblo="BENACAZON";
+                String correo="Molomucho@hotmail.com";
+                String password="pass";
+
+                String query = String.format("nombre=%s&apellidos=%s&telefono=%s&pueblo=%s&correo=%s&password=%s",
+                        URLEncoder.encode(nombre, charset),
+                        URLEncoder.encode(apellidos, charset),
+                        URLEncoder.encode(telefono, charset),
+                        URLEncoder.encode(pueblo, charset),
+                        URLEncoder.encode(correo, charset),
+                        URLEncoder.encode(password, charset));
 
                 // Activar método POST
                 con.setDoOutput(true);
