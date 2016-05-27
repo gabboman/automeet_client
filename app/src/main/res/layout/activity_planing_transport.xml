@@ -14,51 +14,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:prompt="@string/dia_prompt"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginRight="200dp"
         android:contextClickable="false"
-        android:spinnerMode="dropdown" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner2"
-        android:layout_alignTop="@+id/spinner"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="200dp" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/alafacultad"
-        android:id="@+id/radioButton"
-        android:layout_below="@+id/spinner"
-        android:layout_alignLeft="@+id/radioButton2"
-        android:layout_alignStart="@+id/radioButton2"
-        android:checked="true" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/desdelafacultad"
-        android:id="@+id/radioButton2"
-        android:layout_below="@+id/radioButton"
-        android:layout_centerHorizontal="true"
-        android:checked="false" />
+        android:spinnerMode="dropdown"
+        android:layout_toRightOf="@+id/textView15"
+        android:layout_toEndOf="@+id/textView15"
+        android:layout_below="@+id/textView9" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/agregar"
+        android:text="Crear viaje"
         android:id="@+id/button"
-        android:layout_marginTop="42dp"
-        android:layout_below="@+id/radioButton2"
-        android:layout_alignLeft="@+id/radioButton2"
-        android:layout_alignStart="@+id/radioButton2" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,4 +38,134 @@
         android:layout_below="@+id/button"
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Día de la semana:"
+        android:id="@+id/textView9"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <RadioGroup android:id="@+id/GrbGrupo1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/spinner5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="72dp">
+        <RadioButton
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Del pueblo a la Universida"
+            android:id="@+id/radioButton"
+            android:checked="false"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/textView13"
+            android:layout_alignLeft="@+id/textView14"
+            android:layout_alignStart="@+id/textView14"
+            android:layout_gravity="center_horizontal" />
+
+        <RadioButton
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="De la Universidad al pueblo"
+            android:id="@+id/radioButton2"
+            android:checked="false"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/radioButton"
+            android:layout_alignLeft="@+id/radioButton"
+            android:layout_alignStart="@+id/radioButton"
+            android:layout_gravity="center_horizontal" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Provincia:"
+        android:id="@+id/textView13"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/textView14"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar hora"
+        android:id="@+id/button8"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/spinner"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Elija una hora"
+        android:id="@+id/textView14"
+        android:layout_alignBottom="@+id/button8"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner4"
+        android:layout_below="@+id/textView13"
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Campus:"
+        android:id="@+id/textView15"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner5"
+        android:layout_below="@+id/textView15"
+        android:layout_alignLeft="@+id/spinner4"
+        android:layout_alignStart="@+id/spinner4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gasto compartido:"
+        android:id="@+id/textView12"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/spinner5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/editText4"
+        android:layout_alignBottom="@+id/textView12"
+        android:layout_toLeftOf="@+id/textView16"
+        android:layout_alignLeft="@+id/button8"
+        android:layout_alignStart="@+id/button8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="€"
+        android:id="@+id/textView16"
+        android:layout_alignBottom="@+id/editText4"
+        android:layout_alignRight="@+id/button8"
+        android:layout_alignEnd="@+id/button8" />
+
 </RelativeLayout>

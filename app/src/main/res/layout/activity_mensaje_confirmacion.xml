@@ -23,8 +23,27 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver al menú"
         android:id="@+id/button7"
-        android:layout_alignParentTop="true"
+        android:text="Volver al inicio"
+        android:layout_marginTop="128dp"
+        android:layout_alignTop="@+id/textView11"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="El registro se ha realizado correctamente"
+        android:id="@+id/textView8"
+        android:layout_alignTop="@+id/textView11"
+        android:layout_alignRight="@+id/textView11"
+        android:layout_alignEnd="@+id/textView11" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crear viaje"
+        android:id="@+id/button9"
+        android:layout_marginTop="79dp"
+        android:layout_below="@+id/button7"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

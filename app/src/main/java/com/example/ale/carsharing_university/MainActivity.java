@@ -38,45 +38,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    JSONObject jsonobject;
-    JSONArray jsonarray;
-    ProgressDialog mProgressDialog;
-    ArrayList<String> listaPueblos;
-    //ArrayLIst<Pueblo> pueblo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Descargar archivo JSON
-        new DescargaJSON().execute();
-
-        /*
-        //Creación archivo xml pueblos
-        try {
-
-            OutputStreamWriter pueblos = new OutputStreamWriter(openFileOutput("pueblos.xml", Context.BIND_AUTO_CREATE));
-
-            StringBuilder pueblo = new StringBuilder();
-
-        //Construimos el XML
-
-            pueblo.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-                "<resources>\n" +
-                "    <string-array name=\"pueblos\">\n" +
-                "        <item>Los Palacios</item>\n" +
-                "        <item>Utrera</item>\n" +
-                "    </string-array>\n" +
-                "</resources>");
-
-        //Escribimos el resultado a un fichero
-
-            pueblos.write(pueblo.toString());
-            pueblos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
 
         setContentView(R.layout.activity_main);
         Button boton = (Button)findViewById(R.id.button);
@@ -102,28 +67,4 @@ public class MainActivity extends AppCompatActivity {
         activity.startActivity(intent);
     }
 
-    private //Descargar archivo JSON AsyncTask
-    class DescargaJSON extends AsyncTask<Void, Void, Void>{
-        protected Void doInBackground(Void... params){
-            // Locate the Pueblo Class
-            //pueblo = new ArrayList<Pueblo>();
-            // Create an array to populate the spinner
-            listaPueblos = new ArrayList<String>();
-            // JSON file URL address
-            jsonobject = JSONfunctions.getJSONfromURL("http://mc.hamburcraft.xyz:5000/pueblos/");
-
-            try {
-                // Locate the NodeList name
-                for (int i = 0; i <= 179; i++) {
-                    //jsonarray = jsonobject.getJSONArray(i);
-                }
-
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return null;
-
-        }
-    }
 }

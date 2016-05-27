@@ -25,4 +25,14 @@
         <item>Jueves</item>
         <item>Viernes</item>
     </string-array>
+    <string-array name="Provincia">
+        <item>Sevilla</item>
+    </string-array>
+    <string-array name="campus">
+        <item>Reina Mercedes</item>
+        <item>Pabo de olavide</item>
+        <item>Cartuja</item>
+        <item>Ramón y Cajal</item>
+        <item>Macarena</item>
+    </string-array>
 </resources>
