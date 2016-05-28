@@ -167,22 +167,37 @@ public class Filtro extends AppCompatActivity {
                 Log.w("filtraViajes",json.toString());
 
 
-                //JSONArray viajes_array = new JSONArray();
+
+                JSONArray viajes_array = new JSONArray();
+                List<String> lista_viaje = new ArrayList<>();
                 for (Iterator<String> viajes = json.keys();viajes.hasNext();){
                     JSONObject viaje=json.getJSONObject(viajes.next());
-                    
+                    Log.w("Viajes",viaje.toString());
+
+                    //JSONObject habilidades = viaje.getJSONObject("salida");
+                    String salidas = viaje.getString("salida");
+                    Log.w("salida3",salidas);
+
                     //GABRIEL MIRA AQUI HOSTIA PUTA
-                    /*viajes_array.(viaje);
+                    //viajes_array.(viaje);
                     String salidastr=viaje.getString("salida");
                     SimpleDateFormat salida=new SimpleDateFormat (salidastr);
 
+
+
+                    for (int i = 0; i < viaje.length(); i++) {
+                        JSONObject c = viaje.getJSONObject(String.valueOf(i));
+                        String salida1 = c.getString("salida");
+                        Log.w("Viajes2",salida1);
+                        //lista_viaje.add(new String(String.valueOf(viajes_array.getJSONObject(i)))); //creamos un objeto Fruta y lo insertamos en la lista
+
+                    }
+
                     Log.w("Viajes filtrados",viaje.toString());
-                */
+
                 }
-                /*
-                for (int i = 0; i < viajes_array.length(); i++) {
-                    JSONObject c = pers.getJSONObject(i);
-                }*/
+
+
 
 
             } catch (Exception e) {

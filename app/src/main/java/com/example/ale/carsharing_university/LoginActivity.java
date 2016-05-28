@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity  {
         //Acceder
 
         Button botonAcceder = (Button)findViewById(R.id.button10);
+        assert botonAcceder != null;
         botonAcceder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +120,9 @@ public class LoginActivity extends AppCompatActivity  {
 
                 //llevamos a acabo la acción
                 enviar();
+
+                Toast toast = Toast.makeText(LoginActivity.this, "Correo o contraseña incorrecto", Toast.LENGTH_LONG);
+
 
             }
         });
@@ -215,9 +219,6 @@ public class LoginActivity extends AppCompatActivity  {
 
                 respuestaLogin = json.toString();
 
-                if(respuestaLogin.contains("Error")){
-                    Toast.makeText(getBaseContext(), "Correo o contraseña incorrecto", Toast.LENGTH_LONG).show();
-                }
 
                 List<String> tokenLogin = new ArrayList<>();
 
@@ -230,12 +231,6 @@ public class LoginActivity extends AppCompatActivity  {
 
                 }
 
-
-
-                /*for (int i = 0; i < json_array.length(); i++) {
-                    JSONObject c = json_array.getJSONObject(i);
-                    Global.token = c.getString("token");
-                }*/
                 Log.w("Login",Global.token);
 
 
@@ -243,6 +238,8 @@ public class LoginActivity extends AppCompatActivity  {
                 if(respuestaLogin.contains("token")){
                     Intent intent = new Intent(LoginActivity.this, PlaningTransport.class);
                     startActivity(intent);
+                }else{
+                    Toast.makeText(LoginActivity.this, "Correo o contraseña incorrecto", Toast.LENGTH_LONG).show();
                 }
 
 
