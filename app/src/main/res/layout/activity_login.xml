@@ -94,10 +94,10 @@
         android:text="Registrarse"
         android:id="@+id/button4" />
 
-    <Button
+    <!--<Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Temporal para saltar acceso registro"
-        android:id="@+id/button6" />
+        android:id="@+id/button6" />-->
 </LinearLayout>

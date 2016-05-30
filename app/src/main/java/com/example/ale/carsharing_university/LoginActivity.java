@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity  {
         });
 
         //boton de acceso temporal
-
+        /*
         Button boton2 = (Button)findViewById(R.id.button6);
         boton2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity  {
                 Intent intent = new Intent(LoginActivity.this, PlaningTransport.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
     //Haremos el POST a la API
     public void enviar() {
