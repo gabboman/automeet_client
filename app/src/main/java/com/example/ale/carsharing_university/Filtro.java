@@ -2,6 +2,7 @@ package com.example.ale.carsharing_university;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -374,10 +375,15 @@ public class Filtro extends AppCompatActivity {
 
                 JSONObject json = new JSONObject(chaine.toString());
                 Log.w("filtraViajes",json.toString());
+                Intent intent = new Intent(Filtro.this, Resultados.class);
+                Global.viajes=json;
+                Log.w("CAMBIODEACTIVITY","FUNK");
+                startActivity(intent);
 
 
 
                 JSONArray viajes_array = new JSONArray();
+
                 List<String> lista_viaje = new ArrayList<>();
                 for (Iterator<String> viajes = json.keys();viajes.hasNext();){
                     JSONObject viaje=json.getJSONObject(viajes.next());
@@ -421,7 +427,10 @@ public class Filtro extends AppCompatActivity {
 
                     Log.w("Viajes filtrados",viaje.toString());
 
+
                 }
+
+
 
 
 
